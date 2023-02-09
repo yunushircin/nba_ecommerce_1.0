@@ -1,0 +1,52 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+	<section id="slider" class="container my-4">
+		<div id="carouselExampleCaptions" class="carousel slide">
+			<div class="carousel-indicators">
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+				<button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			</div>
+			<div class="carousel-inner">
+				{% for object in carousel %}
+				<div class="carousel-item {% if forloop.counter0 == 0 %} active {% endif %} ">
+					<img src=" {{object.imageURL}}" class="d-block w-100" alt="...">
+				</div>
+				{% endfor %}
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+		
+	</section>
+
+	<section id="banner" class="container my-3">
+		<div class="row">
+			<img src="{% static 'images/banner/banner1-copyright.png' %}" class="col align-self-start p-2">
+			<img src="{% static 'images/banner/banner2-copyright.png' %}" class="col align-self-end p-2">
+		</div>
+	</section>
+
+	<section id="featured" class="container p-0">
+		<div id="featured-title">
+			<h3>Our Featured</h3>
+		</div>
+		<div class="row mx-auto container-fluid">
+			{% for product in products %}
+			<div class="product text-center col-lg-3 col-md-4 col-12 mt-3">
+				<a href="sproduct/{{product.id}}"><img class="img-fluid mb-3" src="{{product.imageURL}}"></a>
+				<h3><span>${{product.price|floatformat:2}}</span></h3>
+				<h4><strong>{{product.name}}</strong> </h4>
+				<button data-product= "{{product.id}}" data-action= "add" class="add-cart add-btn update-cart">Add to Cart</button>
+			</div>
+			{% endfor %}
+		</div>
+	</section>
+{% endblock content %}

@@ -1,0 +1,178 @@
+{% load static %}
+<html>
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Rolletto</title>
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" integrity="sha512-c42qTSw/wPZ3/5LBzD+Bw5f7bSF2oxou6wEb+I/lqeaKV5FDIfMvvRp772y4jcJLKuGUOpbJMdg/BTl50fJYAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+        <script type="text/javascript">
+            var user = '{{request.user}}'
+
+            function getToken(name){
+                var cookieValue=null;
+                if(document.cookie && document.cookie !== ''){
+                    var cookies = document.cookie.split(';');
+                    for(var i = 0; i<cookies.length; i++){
+                        var cookie = cookies[i].trim();
+
+                        if(cookie.substring(0, name.length+1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length+1));
+                            break;
+                        }
+
+                    }
+                }
+                return cookieValue;
+            }
+            var csrftoken = getToken('csrftoken');
+
+            function getCookie(name){
+                var cookieArr = document.cookie.split(";");
+
+                for (var i = 0; i<cookieArr.length; i++){
+                    var cookiePair = cookieArr[i].split("=");
+                    if(name==cookiePair[0].trim()){
+                        return decodeURIComponent(cookiePair[1]);
+                    }
+                }
+                return null;
+            }
+            var cart = JSON.parse(getCookie('cart'))
+            if(cart == undefined){
+                cart={}
+                console.log('Cart was created!')
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+            }
+            console.log('Cart:', cart)
+        </script>
+    </head>
+    <body>
+        <!--<header class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="social-follow">Follow:</div>
+                    <div class="social-icons">
+                        <a class="facebook-icon" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="facebook-icon" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="facebook-icon" href=""><i class="fab fa-instagram"></i></a>
+                        <a class="facebook-icon" href=""><i class="fab fa-telegram"></i></a>
+                        <a class="facebook-icon" href=""><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+        </header>-->
+
+        <nav class="navbar navbar-expand-lg navbar-light py-3">
+            <div class="container">
+                <a href="{% url 'store'%}"><img src="{% static 'images/svg/rolletto-logo.svg' %}" width="120"></a>
+            
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span><i id="bar" class="fa-solid fa-bars"></i></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'store'%}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'shop'%}">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                    <div class="cart-icon" href="#" >
+                        <i class="fa-solid fa-user"></i>
+                        <a href="{% url 'cart'%}"><i class="fa-solid fa-cart-shopping">
+                            <span class="badge" id="cart-total">{{cartItems}}</span>
+                        </i></a>
+                    </div>
+                </div>
+                
+            </div>
+        </nav>
+
+        <div class="p-0 m-0">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <footer class="p-0 mt-3">
+            <div class="container grid text-center py-5">
+                <img src="{% static 'images/nba_teams_logo/58419b70a6515b1e0ad75a50.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419bd7a6515b1e0ad75a57.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419be4a6515b1e0ad75a58.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419c6aa6515b1e0ad75a61.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419c8da6515b1e0ad75a63.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419b70a6515b1e0ad75a50.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419bd7a6515b1e0ad75a57.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419be4a6515b1e0ad75a58.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419c6aa6515b1e0ad75a61.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419bd7a6515b1e0ad75a57.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+                <img src="{% static 'images/nba_teams_logo/58419c8da6515b1e0ad75a63.png' %}" class="img-fluid col-lg-1 col-md-4 col-11">
+            </div>
+        
+            <hr class="container mx-auto">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <h3 style="font-size:40px;">JOIN US FOR A FREE <br> TRAINING SESSION!</h3>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-12">
+                        <div class="row">
+                            <div class="social-icons">
+                                <a class="facebook-icon" href=""><i class="fab fa-facebook-f"></i></a>
+                                <a class="facebook-icon" href=""><i class="fab fa-twitter"></i></a>
+                                <a class="facebook-icon" href=""><i class="fab fa-instagram"></i></a>
+                                <a class="facebook-icon" href=""><i class="fab fa-telegram"></i></a>
+                                <a class="facebook-icon" href=""><i class="fab fa-whatsapp"></i></a>
+                            </div>
+                            <div>
+                                <h4>@rollettocom</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+            <hr class="container mx-auto">
+            <div class="row container mx-auto py-3">
+                <div class="footer-one col-lg-6 col-md-6 col-12">
+                    <a class="me-3" href="#">Home</a>
+                    <a class="me-3" href="#">Shop</a>
+                    <a class="me-3" href="#">Blog</a>
+                    <a class="me-3" href="#">About</a>
+                    <a class="me-3" href="#">Contact Us</a>
+                </div>
+                <div class="footer-one col-lg-6 col-md-6 col-12">
+                    <h4>Rolletto © 2023 All Rights Reserved</h4>
+                </div>
+            </div>
+        </footer>
+
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        
+
+        
+        <script type="text/javascript" src="{% static 'js/cart.js' %}" > </script>
+        <script type="text/javascript" src="{% static 'js/script.js' %}" > </script>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+    </body>
+</html>

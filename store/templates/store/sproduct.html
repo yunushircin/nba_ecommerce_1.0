@@ -1,0 +1,40 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="jumbotron cart-jumbotron ">
+        <div class="container">
+            <h1 class="display-2">Product</h1>
+            <ul class="breadcrumb">
+                <li><a href="{% url 'store' %}">Home</a></li>
+                <li>Cart</li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="container sproduct my-4 pt-4">
+        <div class="row mt-5">
+            <div class="col-lg-5 col-md-2 col-12">
+                <img class="img-fluid w-100" src="{{product.imageURL}}" alt="">
+            </div>
+            <div class="col-lg-6 col-md-12 col-12 ms-5 mt-4">
+                <h3>{{product.name}}</h3>
+                <h2>{{product.price}}</h2>
+                <p class="mt-4">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim.<br></p>
+                <select class="form-select my-4">
+                    <option value="">Select Size</option>
+                    <option value="">XXL</option>
+                    <option value="">XL</option>
+                    <option value="">Medium</option>
+                    <option value="">Small</option>
+                </select>
+                <input type="number" value="1">
+				<button data-product= "{{product.id}}" data-action= "add" class="add-cart buy-btn update-cart">Add to Cart</button>
+            </div>
+        </div>
+        
+    </section>
+
+
+
+{% endblock content %}

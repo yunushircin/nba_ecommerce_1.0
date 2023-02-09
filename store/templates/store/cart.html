@@ -1,0 +1,96 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+	<div class="jumbotron cart-jumbotron ">
+		<div class="container">
+			<h1 class="display-2">Cart</h1>
+			<ul class="breadcrumb">
+				<li><a href="{% url 'store' %}">Home</a></li>
+				<li>Cart</li>
+			</ul>
+		</div>
+	</div>
+
+	<section id="cart-container" class=" container my-5">
+		<a class="btn btn-outline-dark mb-4" href="{% url 'store' %}">&#x2190; Continue Shopping</a>
+		<table>
+			<thead>
+				<tr>
+					<td>#</td>
+					<td>Image</td>
+					<td>Item</td>
+					<td>Price</td>
+					<td>Quantity</td>
+					<td>Total</td>
+				</tr>
+			</thead>
+			{% if items %}
+				{% for item in items %}
+			
+				<tbody>
+					<tr>
+						<td><a href="#"><i class="fa-solid fa-trash-can"></i></a></td>
+						<td><img class="row-image" width="80px" src="{{ item.product.imageURL }}"</td>
+						<td><p>{{item.product.name}}</p></td>
+						<td><p>{{item.product.price|floatformat:2}}</p></td>
+						<td>
+							<div class="d-flex justify-content-center pb-3">
+								<div class="col" >
+									<p class="quantity text-end pt-3 ps-2">{{item.quantity}}</p>
+								</div>
+								<div class="d-inline col text-start">
+									<div>
+										<img data-product={{item.product.id}} data-action="add" class="chg-quantity update-cart" src = "{% static 'images/svg/up-button.svg'%}"></i>
+									</div>
+									<div>
+										<img data-product={{item.product.id}} data-action="remove" class="chg-quantity update-cart" src = "{% static 'images/svg/down-button.svg'%}"></i>
+									</div>
+								</div>
+							</div>
+						</td>
+						<td><p>{{item.get_total}}</p></td>
+					</tr>
+				</tbody>
+				
+				{% endfor %}
+			{% else %}
+					<h4>Your cart is empty</h4>
+			{% endif %}
+		</table>
+	</section>
+
+	<section id="cart-bottom" class="container">
+		<div class="row">
+			<div class="coupon col-lg-6 col-md-6 col-12 mb-4">
+				<div>
+					<h5>Coupon</h5>
+					<p>Enter your coupon code if you have one</p>
+					<input type="text" placeholder="Coupon Code">
+					<a style="float:right; margin-right:12px; width:200px; text-align:center; padding-top:10px; text-decoration:none;" class="buy-btn" href="#">Apply Coupon</a>
+
+				</div>
+			</div>
+			<div class="total col-lg-6 col-md-6 col-12">
+				<div>
+					<h5>Cart Total</h5>
+					<div class="d-flex justify-content-between">
+						<h6>Subtotal</h6>
+						<p>{{order.get_cart_total}}</p>
+					</div>
+					<div class="d-flex justify-content-between">
+						<h6>Shipping</h6>
+						<p>Free Shipping</p>
+					</div>
+					<hr>
+					<div class="d-flex justify-content-between">
+						<h6>Total</h6>
+						<p>{{order.get_cart_total}}</p>
+					</div>
+					<a style="float:right; margin:12px; width:200px; text-align:center; padding-top:10px; text-decoration:none;" class="buy-btn" href="{% url 'checkout' %}">Checkout</a>
+
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock content %}

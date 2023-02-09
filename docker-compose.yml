@@ -1,0 +1,28 @@
+services:
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres_db
+      - POSTGRES_USER=rollettoseo@gmail.com
+      - POSTGRES_PASSWORD=~jJDfEySEf76
+    container_name: postgres_db
+
+  app:
+    build: .
+    volumes:
+      - .:/django
+    ports:
+      - 80:80
+    image: app:v1
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:80
+    depends_on:
+      - db

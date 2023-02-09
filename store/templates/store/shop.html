@@ -1,0 +1,192 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="jumbotron cart-jumbotron ">
+        <div class="container">
+            <h1 class="display-2">Product</h1>
+            <ul class="breadcrumb">
+                <li><a href="{% url 'store' %}">Home</a></li>
+                <li>Shop</li>
+            </ul>
+        </div>
+    </div>
+
+    <section id="filter" class="container my-4">
+        <!-- Shop Page Start  -->
+        <div class="shop-category-area py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
+                        <!-- Shop Top Area Start -->
+                        <div class="d-flex justify-content-between">
+                            <div class="shop-tab nav">
+                                <a href="#" class="active me-2" data-bs-target="#shop-grid" data-bs-toggle="tab"><i class="fa-solid fa-table-cells" style="font-size:1.5rem"></i></i></a>
+                                <a href="#" class="me-3" data-bs-target="#shop-list" data-bs-toggle="tab"><i class="fa-solid fa-list-ul" style="font-size:1.5rem"></i></i></a>
+                                <p>Showing All <span>30</span> results</p>
+                            </div>
+                            <select class="form-select form-select-sm w-25">
+                                <option value="">Name, A to Z</option>
+                                <option value="">Name, Z to A</option>
+                                <option value="">Price, low to high</option>
+                                <option value="">Price, high to low</option>
+                                <option value="">Sort By new</option>
+                                <option value="">Sort By old</option>
+                            </select>
+                        </div>
+                        <!-- Shop Top Area End -->
+                        <!-- Shop Bottom Area Start -->
+                        <div class="shop-bottom-area my-3">
+                            <!-- Tab Content Area Start -->
+                            <div class="row">
+                                <div class="col">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active " id="shop-grid">
+                                            <div class="row container-fluid">
+                                                {% for product in products %}
+                                                <div class="product text-center col-lg-4 col-12 ">
+                                                    <a href="sproduct/{{product.id}}"><img class="img-fluid mb-3" src="{{product.imageURL}}"></a>
+                                                    <h3><span>${{product.price|floatformat:2}}</span></h3>
+                                                    <h4><strong>{{product.name}}</strong> </h4>
+                                                    <button data-product= "{{product.id}}" data-action= "add" class="add-cart add-btn update-cart">Add to Cart</button>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="shop-list">
+                                            <div class="container-fluid">
+                                                {% for product in products %}
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="product w-25 me-4">
+                                                            <a href="sproduct/{{product.id}}"><img class="img-fluid mb-3" src="{{product.imageURL}}"></a>
+                                                        </div>
+                                                        <div class="w-75">
+                                                            <h4><strong>{{product.name}}</strong> </h4>
+                                                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim.</p>
+                                                            <h3 style="color:coral">${{product.price|floatformat:2}}</h3>
+                                                            <button data-product= "{{product.id}}" data-action= "add" class="add-cart add-btn update-cart">Add to Cart</button>
+                                                        </div>
+                                                    </div>
+                                                    <hr class="mb-5">
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tab Content Area End -->
+                            <!--  Pagination Area Start -->
+                            <!--<div class="pro-pagination-style text-center text-lg-end" data-aos="fade-up" data-aos-delay="200">
+                                <div class="pages">
+                                    <ul>
+                                        <li class="li"><a class="page-link" href="#"><i class="fa fa-angle-left"></i></a>
+                                        </li>
+                                        <li class="li"><a class="page-link" href="#">1</a></li>
+                                        <li class="li"><a class="page-link active" href="#">2</a></li>
+                                        <li class="li"><a class="page-link" href="#">3</a></li>
+                                        <li class="li"><a class="page-link" href="#"><i class="fa fa-angle-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>-->
+                            <!--  Pagination Area End -->
+                        </div>
+                        <!-- Shop Bottom Area End -->
+                    </div>
+                    <!-- Sidebar Area Start -->
+                    <div class="col-lg-3 order-lg-first col-md-12 order-md-last">
+                        <div class="shop-sidebar-wrap">
+                            <!-- Sidebar single item -->
+                            <div class="sidebar-widget">
+                                <h4 class="sidebar-title">Top Categories</h4>
+                                <div class="sidebar-widget-list">
+                                    <ul>
+                                        <li><a href="#" class="selected m-0"> All
+                                                <span>(65)</span> </a></li>
+                                        <li><a href="#" class=""> Hoodies
+                                                <span>(12)</span> </a></li>
+                                        <li><a href="#" class=""> Shoes
+                                                <span>(22)</span> </a></li>
+                                        <li><a href="#" class=""> T-shirts
+                                                <span>(19)</span> </a></li>
+                                        <li><a href="#" class=""> Other
+                                                <span>(17)</span> </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Sidebar single item -->
+                            <div class="sidebar-widget mt-8">
+                                <h4 class="sidebar-title ">Price Filter</h4>
+                                <div class="price-filter d-flex justify-content-center">
+                                    <input type="range" class="form-range p-3 " min="0" max="5" id="amount">
+                                </div>
+                                <div>
+                                    <h5 class="text-end pe-3">Price: <span style="font-weight:700">15 - 20</span></h5>
+                                </div>
+                            </div>
+                            <!-- Sidebar single item -->
+                            <div class="sidebar-widget">
+                                <h4 class="sidebar-title">Color</h4>
+                                <div class="sidebar-widget-color">
+                                    <ul class="d-flex flex-wrap">
+                                        <li><a href="#" class="color-1"></a></li>
+                                        <li><a href="#" class="color-2"></a></li>
+                                        <li><a href="#" class="color-3"></a></li>
+                                        <li><a href="#" class="color-4"></a></li>
+                                        <li><a href="#" class="color-5"></a></li>
+                                        <li><a href="#" class="color-6"></a></li>
+                                        <li><a href="#" class="color-7"></a></li>
+                                        <li><a href="#" class="color-8"></a></li>
+                                        <li><a href="#" class="color-9"></a></li>
+                                        <li><a href="#" class="color-10"></a></li>
+                                        <li><a href="#" class="color-11"></a></li>
+                                        <li><a href="#" class="color-12"></a></li>
+                                        <li><a href="#" class="color-13"></a></li>
+                                        <li><a href="#" class="color-14"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Sidebar single item -->
+                            <div class="sidebar-widget">
+                                <h4 class="sidebar-title">Size</h4>
+                                <div class="sidebar-widget-list">
+                                    <ul>
+                                        <li><a href="#" class="selected m-0"> All
+                                                <span>(6)</span> </a></li>
+                                        <li><a href="#" class=""> S <span>(12)</span> </a>
+                                        </li>
+                                        <li><a href="#" class=""> M <span>(21)</span> </a>
+                                        </li>
+                                        <li><a href="#" class=""> L <span>(16)</span> </a>
+                                        </li>
+                                        <li><a href="#" class=""> XL <span>(22)</span> </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Sidebar single item -->
+                            <div class="sidebar-widget">
+                                <h4 class="sidebar-title">Brands</h4>
+                                <div class="sidebar-widget-list">
+                                    <ul>
+                                        <li><a href="#" class="selected m-0"> Lakers<span>(65)</span> </a></li>
+                                        <li><a href="#" class=""> Golden State <span>(14)</span></a></li>
+                                        <li><a href="#" class=""> Bulls <span>(21)</span></a></li>
+                                        <li><a href="#" class=""> Memphis <span>(16)</span></a></li>
+                                        <li><a href="#" class=""> Spurs<span>(12)</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Sidebar single item -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Shop Page End  -->
+    </section>
+
+
+
+
+{% endblock content %}
