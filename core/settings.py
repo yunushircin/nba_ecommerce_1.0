@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-sqf4^_je72-2)wntl6=+w2t#m*s=!kokoqk=)(h#ys2mc()xvk
 DEBUG = True
 # DEBUG = getenv("IS_DEVELOPMENT", True)
 
-ALLOWED_HOSTS = ['https://nba-ecommerce.herokuapp.com']
+ALLOWED_HOSTS = ['nba-ecommerce.herokuapp.com']
 
 # 'env-nbaecommerce.eba-eeeshp6r.us-west-2.elasticbeanstalk.com'
 
