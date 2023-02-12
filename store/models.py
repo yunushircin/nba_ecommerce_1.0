@@ -134,7 +134,7 @@ class Carousel(models.Model):
 
     def imageURL(self):
         try:
-            url = ''.join('static' + self.image.url)
+            url = self.image.url
         except:
             url = ''
         return url
