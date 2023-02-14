@@ -3,3 +3,12 @@ docker-compose run --rm app django-admin startproject core .
 docker-compose up
 
 docker exec -it django_app sh
+
+.github
+
+Delete Branch
+- Delete a local branch: git branch -D <branchName> 
+- Delete a remote branch: git push origin -d <branchName> or git push origin :<branchName>
+
+Delete Origin(remote)
+- git remote rm origin
